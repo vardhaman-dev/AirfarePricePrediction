@@ -1,0 +1,6 @@
+2025-03-30 18:31:27,325 [INFO] Attempt 1: Fetching data from https://skyscanner89.p.rapidapi.com/flights/one-way/list?origin=NYCA&originId=27537542&destination=HNL&destinationId=95673827
+2025-03-30 18:31:27,378 [ERROR] Error fetching data: HTTPSConnectionPool(host='skyscanner89.p.rapidapi.com', port=443): Max retries exceeded with url: /flights/one-way/list?origin=NYCA&originId=27537542&destination=HNL&destinationId=95673827 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7a75ea89b6e0>: Failed to resolve 'skyscanner89.p.rapidapi.com' ([Errno -3] Temporary failure in name resolution)"))
+2025-03-30 18:31:27,378 [INFO] Retrying in 5 seconds...
+2025-03-30 18:31:32,378 [INFO] Attempt 2: Fetching data from https://skyscanner89.p.rapidapi.com/flights/one-way/list?origin=NYCA&originId=27537542&destination=HNL&destinationId=95673827
+2025-03-30 18:31:33,751 [INFO] Data fetched successfully
+2025-03-30 18:31:33,753 [INFO] Data successfully saved to flight_prices.csv
