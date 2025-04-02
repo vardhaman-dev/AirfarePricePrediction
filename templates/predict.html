@@ -12,8 +12,8 @@
 
   <title>Flight Fare Prediction</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <!-- CSS -->
@@ -46,7 +46,9 @@
             <div class="card">
               <div class="inputs">
                 <h5 class="title"><i class="fas fa-calendar-alt"></i> Departure Date</h5>
-                <input type="datetime-local" name="departure" id="departure" required="required">
+                <input type="date" name="departure_date" id="departure_date" required="required">
+                <h5 class="title"><i class="fas fa-clock"></i> Departure Time</h5>
+                <input type="time" name="departure_time" id="departure_time" required="required">
               </div>
             </div>
 
@@ -80,7 +82,9 @@
             <div class="card">
               <div class="inputs">
                 <h5 class="title"><i class="fas fa-calendar-alt"></i> Arrival Date</h5>
-                <input type="datetime-local" name="arrival" id="arrival" required="required">
+                <input type="date" name="arrival_date" id="arrival_date" required="required">
+                <h5 class="title"><i class="fas fa-clock"></i> Arrival Time</h5>
+                <input type="time" name="arrival_time" id="arrival_time" required="required">
               </div>
             </div>
 
@@ -138,8 +142,13 @@
   <script>
     // Date/time validation
     document.getElementById('prediction-form').addEventListener('submit', function(e) {
-      const departure = new Date(document.getElementById('departure').value);
-      const arrival = new Date(document.getElementById('arrival').value);
+      const departureDate = document.getElementById('departure_date').value;
+      const departureTime = document.getElementById('departure_time').value;
+      const arrivalDate = document.getElementById('arrival_date').value;
+      const arrivalTime = document.getElementById('arrival_time').value;
+      
+      const departure = new Date(`${departureDate}T${departureTime}`);
+      const arrival = new Date(`${arrivalDate}T${arrivalTime}`);
       
       if (arrival <= departure) {
         alert('Arrival time must be after departure time');
@@ -178,7 +187,7 @@
         particle.style.left = `${posX}vw`;
         particle.style.top = `${posY}vh`;
         particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
-        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        particle.style.opacity = Math.random() * 0.05 + 0.02;
         
         particlesContainer.appendChild(particle);
       }
