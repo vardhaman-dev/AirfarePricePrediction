@@ -18,3 +18,4 @@ uri-template==1.2.0
 urllib3==2.0.2
 virtualenv==20.23.0
 xgboost==1.6.1
+gunicorn
