@@ -3,6 +3,7 @@ from flask import Flask, request, render_template
 import sklearn
 import pickle
 import pandas as pd
+import datetime
 
 
 app = Flask(__name__)
@@ -20,20 +21,26 @@ def predict():
     if request.method == "POST":
 
         # Date_of_Journey
-        date_dep = request.form["departure"]
-        journey_day = int(pd.to_datetime(date_dep, format="%Y-%m-%dT%H:%M").day)
-        journey_month = int(pd.to_datetime(date_dep, format ="%Y-%m-%dT%H:%M").month)
+        date_dep_date = request.form["departure_date"]
+        date_dep_time = request.form["departure_time"]
+        date_dep = f"{date_dep_date}T{date_dep_time}"
+        
+        journey_day = int(pd.to_datetime(date_dep_date).day)
+        journey_month = int(pd.to_datetime(date_dep_date).month)
         # print("Journey Date : ",Journey_day, Journey_month)
 
         # Departure
-        dep_hour = int(pd.to_datetime(date_dep, format ="%Y-%m-%dT%H:%M").hour)
-        dep_min = int(pd.to_datetime(date_dep, format ="%Y-%m-%dT%H:%M").minute)
+        dep_hour = int(pd.to_datetime(date_dep_time, format="%H:%M").hour)
+        dep_min = int(pd.to_datetime(date_dep_time, format="%H:%M").minute)
         # print("Departure : ",Dep_hour, Dep_min)
 
         # Arrival
-        date_arr = request.form["arrival"]
-        arrival_hour = int(pd.to_datetime(date_arr, format ="%Y-%m-%dT%H:%M").hour)
-        arrival_min = int(pd.to_datetime(date_arr, format ="%Y-%m-%dT%H:%M").minute)
+        date_arr_date = request.form["arrival_date"]
+        date_arr_time = request.form["arrival_time"]
+        date_arr = f"{date_arr_date}T{date_arr_time}"
+        
+        arrival_hour = int(pd.to_datetime(date_arr_time, format="%H:%M").hour)
+        arrival_min = int(pd.to_datetime(date_arr_time, format="%H:%M").minute)
         # print("Arrival : ", Arrival_hour, Arrival_min)
 
         # Duration
