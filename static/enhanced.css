@@ -1,0 +1,343 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  --primary-color: #1a73e8;
+  --secondary-color: #4285f4;
+  --accent-color: #174ea6;
+  --text-color: #202124;
+  --light-text: #5f6368;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --input-bg: rgba(255, 255, 255, 0.95);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
+  --border-color: #e0e0e0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Montserrat', sans-serif;
+  transition: all 0.2s ease;
+}
+
+body {
+  min-height: 100vh;
+  background: #f8f9fa;
+  color: var(--text-color);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: var(--primary-color);
+  opacity: 0.05;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-80vh) rotate(180deg);
+  }
+  100% {
+    transform: translateY(-160vh) rotate(360deg);
+  }
+}
+
+#Main {
+  padding: 12px 40px;
+  background: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 997;
+}
+
+#Main a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+#Main h3 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 30px;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+#navbar {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 10px;
+}
+
+#navbar li a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  letter-spacing: 0.25px;
+}
+
+#navbar li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+#navbar li a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+#Predict {
+  padding: 2.5rem;
+  min-height: calc(100vh - 170px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.border {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 1000px;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 1px solid var(--border-color);
+}
+
+.border:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.prediction-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--text-color);
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.prediction-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 40px;
+  height: 2px;
+  background: var(--primary-color);
+  transform: translateX(-50%);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--input-bg);
+  padding: 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  position: relative;
+  border: 1px solid var(--border-color);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.title {
+  color: var(--light-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title i {
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+input, select {
+  padding: 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+}
+
+input[type="submit"] {
+  margin-top: 2rem;
+  padding: 0.9rem 2.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+input[type="submit"]:hover {
+  background-color: var(--accent-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.prediction-text {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#Footer {
+  background: var(--primary-color);
+  padding: 20px 0;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.footer h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.last {
+  text-align: center;
+  padding: 5px 0;
+}
+
+.last p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.developer-name {
+  font-weight: 500;
+  position: relative;
+  padding: 0 3px;
+  color: #fff;
+}
+
+.developer-name::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  #Predict {
+    padding: 1.5rem;
+  }
+  
+  .border {
+    padding: 1.75rem;
+  }
+  
+  #Main {
+    padding: 10px 20px;
+  }
+  
+  #Main h3 {
+    margin: 0 10px;
+    font-size: 18px;
+  }
+  
+  #navbar li a {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .card {
+    padding: 1.25rem;
+  }
+  
+  input, select {
+    padding: 0.8rem;
+  }
+  
+  .prediction-title {
+    font-size: 1.5rem;
+  }
+} 

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="shortcut icon" href="{{ url_for('static', filename='logo.jpg') }}">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Flight Fare Prediction</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../static/enhanced.css" />
+
+</head>
+
+<body>
+  <div class="particles"></div>
+
+  <section id="Main">
+    <a href="{{ url_for( 'index' ) }}">
+      <i class="fas fa-plane" style="margin-right: 10px; font-size: 24px;"></i>
+      <h3>Flight Price Prediction</h3>
+    </a>
+    <div>
+      <ul id="navbar">
+        <li><a href="{{ url_for( 'index' ) }}">HOME</a></li>
+        <li><a class="active" href="{{ url_for( 'predict' ) }}">PREDICTION</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="Predict">
+    <div class="border">
+      <h2 class="prediction-title">Predict Flight Fare</h2>
+      <form action="{{ url_for( 'predict' ) }}" method="post" id="prediction-form">
+        <div class="container">
+          <div class="col1">
+            <div class="card">
+              <div class="inputs">
+                <h5 class="title"><i class="fas fa-calendar-alt"></i> Departure Date</h5>
+                <input type="datetime-local" name="departure" id="departure" required="required">
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="inputs">
+                <h5 class="title"><i class="fas fa-plane-departure"></i> Source</h5>
+                <select name="source" id="source" required="required" class="select1" onchange="checkSameCity()">
+                  <option value="Bangalore">Bangalore</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Chennai">Chennai</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="inputs">
+                <h5 class="title"><i class="fas fa-map-marker-alt"></i> Stopage</h5>
+                <select name="stopage" required="required">
+                  <option value="0">Non-Stop</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col2">
+            <div class="card">
+              <div class="inputs">
+                <h5 class="title"><i class="fas fa-calendar-alt"></i> Arrival Date</h5>
+                <input type="datetime-local" name="arrival" id="arrival" required="required">
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="inputs">
+                <h5 class="title"><i class="fas fa-plane-arrival"></i> Destination</h5>
+                <select name="destination" id="destination" required="required" class="select2" onchange="checkSameCity()">
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Kolkata">Kolkata</option>
+                  <option value="Hyderabad">Hyderabad</option>
+                  <option value="Bangalore">Bangalore</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="inputs">
+                <h5 class="title"><i class="fas fa-fighter-jet"></i> Select Airline</h5>
+                <select name="airline" id="airline" required="required">
+                  <option value="Vistara">Vistara</option>
+                  <option value="Air India">Air India</option>
+                  <option value="IndiGo">IndiGo</option>
+                  <option value="Air Asia">Air Asia</option>
+                  <option value="GO_FIRST">GO_FIRST</option>
+                  <option value="SpiceJet">SpiceJet</option>
+                  <option value="AkasaAir">AkasaAir</option>
+                  <option value="AllianceAir">AllianceAir</option>
+                  <option value="StarAir">StarAir</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <center>
+          <input type="submit" value="Predict Price">
+          <br>
+          <br>
+          <h4 class="prediction-text">{{ prediction_text }}</h4>
+        </center>
+      </form>
+    </div>
+  </section>
+
+  <footer id="Footer">
+    <div class="footer">
+      <h3>Flight Price Prediction</h3>
+    </div>
+    <div class="last">
+      <p>Developed by <span class="developer-name">Vardhaman Ganpule</span></p>
+    </div>
+  </footer>
+
+  <script>
+    // Date/time validation
+    document.getElementById('prediction-form').addEventListener('submit', function(e) {
+      const departure = new Date(document.getElementById('departure').value);
+      const arrival = new Date(document.getElementById('arrival').value);
+      
+      if (arrival <= departure) {
+        alert('Arrival time must be after departure time');
+        e.preventDefault();
+      }
+    });
+    
+    // Validation for source and destination
+    function checkSameCity() {
+      const source = document.getElementById('source').value;
+      const destination = document.getElementById('destination').value;
+      
+      if (source && destination && source === destination) {
+        alert('Source and destination cannot be the same');
+        document.getElementById('destination').value = '';
+      }
+    }
+    
+    // Particles animation
+    function createParticles() {
+      const particlesContainer = document.querySelector('.particles');
+      const particleCount = 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const size = Math.random() * 5 + 1;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}vw`;
+        particle.style.top = `${posY}vh`;
+        particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Form animation
+    function animateForm() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 + (index * 100));
+      });
+    }
+    
+    // Initialize animations
+    window.addEventListener('load', function() {
+      createParticles();
+      animateForm();
+      
+      // Add animation to prediction result if exists
+      const predictionText = document.querySelector('.prediction-text');
+      if (predictionText && predictionText.textContent.trim() !== '') {
+        predictionText.style.opacity = '0';
+        setTimeout(() => {
+          predictionText.style.opacity = '1';
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+
+</html>
